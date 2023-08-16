@@ -1,12 +1,26 @@
-let time = 3600;
-const countDownEl = document.getElementById("countdown");
+const countDownEl = document.getElementById("countdown-id");
+const buttonEl = document.querySelector("button");
+const daysEl = document.getElementById("days");
+const inputEl = document.querySelector('input'); 
+var time = NaN;
 
-setInterval(updateCountdown, 1000);
+
+buttonEl.addEventListener('click', function(){
+    time = inputEl.value;
+    setInterval(updateCountdown, 1000);
+});
 
 function updateCountdown(){
+    let days = Math.floor(time / (3600 * 24));
+    time %= (3600 * 24);
+    let hours = Math.floor(time / (3600));
+    time %= (3600)   
     let minutes = Math.floor(time / 60);
     let seconds = time % 60;
+    hours = hours < 10 ? "0" + hours: hours;
+    minutes = minutes < 10 ? "0" + minutes: minutes;
     seconds = seconds < 10 ? "0" + seconds: seconds;
-    countDownEl.innerHTML = `${minutes}:${seconds}`;
+    daysEl.innerHTML = `days: ${days}`;
+    countDownEl.innerHTML = `${hours}:${minutes}:${seconds}`;
     time--;
 }
